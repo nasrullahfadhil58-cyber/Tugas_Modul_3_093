@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perpustakaan - Data Buku</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f6f8;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .form-box {
+            background: white;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #ddd;
+        }
+
+        a {
+            text-decoration: none;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Perpustakaan</h1>
+
+    <div class="form-box">
+        <h2>Tambah Data Buku</h2>
+
+        <form action="/tambah" method="POST">
+
+            <input type="text"
+                   name="judul"
+                   placeholder="Judul Buku"
+                   required>
+
+            <input type="text"
+                   name="penulis"
+                   placeholder="Penulis"
+                   required>
+
+            <input type="number"
+                   name="tahun_terbit"
+                   placeholder="Tahun Terbit"
+                   required>
+
+            <button type="submit">Tambah Buku</button>
+
+        </form>
+    </div>
+
+    <h2>Daftar Buku</h2>
+
+    <table>
+        <tr>
+            <th>ID Buku</th>
+            <th>Judul</th>
+            <th>Penulis</th>
+            <th>Tahun Terbit</th>
+            <th>Aksi</th>
+        </tr>
+
+        {% for buku in buku_list %}
+        <tr>
+            <td>{{ buku.id_buku }}</td>
+            <td>{{ buku.judul }}</td>
+            <td>{{ buku.penulis }}</td>
+            <td>{{ buku.tahun_terbit }}</td>
+
+            <td>
+                <a href="/edit/{{ buku.id_buku }}">Edit</a>
+                <a href="/hapus/{{ buku.id_buku }}"
+                   onclick="return confirm('Yakin ingin menghapus data ini?')">
+                    Hapus
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Buku</title>
+</head>
+
+<body>
+
+    <h1>Edit Data Buku</h1>
+
+    <form action="/edit/{{ buku.id_buku }}" method="POST">
+
+        <label>Judul Buku</label><br>
+        <input type="text"
+               name="judul"
+               value="{{ buku.judul }}"
+               required>
+        <br><br>
+
+        <label>Penulis</label><br>
+        <input type="text"
+               name="penulis"
+               value="{{ buku.penulis }}"
+               required>
+        <br><br>
+
+        <label>Tahun Terbit</label><br>
+        <input type="number"
+               name="tahun_terbit"
+               value="{{ buku.tahun_terbit }}"
+               required>
+        <br><br>
+
+        <button type="submit">Simpan Perubahan</button>
+
+    </form>
+
+    <br>
+
+    <a href="/">Kembali ke Daftar Buku</a>
+
+</body>
+</html>
