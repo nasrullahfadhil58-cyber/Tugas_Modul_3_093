@@ -6,7 +6,7 @@ from unittest.mock import MagicMock
 ROOT_DIR = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT_DIR))
 
-from Models.buku_model import BukuModel
+from models.buku_model import BukuModel
 
 
 def test_create_buku_berhasil():

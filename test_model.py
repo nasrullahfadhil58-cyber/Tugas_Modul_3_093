@@ -1,5 +1,4 @@
-from Models.buku_model import BukuModel
-
+from models.buku_model import BukuModel
 model = BukuModel()
 
 # 1. Menguji fungsi Create (menambah buku baru)

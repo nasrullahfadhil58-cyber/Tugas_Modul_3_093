@@ -1,3 +1,4 @@
+
 import customtkinter as ctk
 from tkinter import ttk
 
@@ -7,7 +8,7 @@ class BukuView(ctk.CTk):
         super().__init__()
 
         self.title("Sistem Manajemen Perpustakaan")
-        self.geometry("1000x550")
+        self.geometry("1000x600")
 
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=2)
@@ -81,6 +82,17 @@ class BukuView(ctk.CTk):
             pady=8, padx=15, fill="x"
         )
 
+        # Tombol Logout
+        self.btn_logout = ctk.CTkButton(
+            self.frame_kiri,
+            text="Logout",
+            fg_color="gray",
+            hover_color="#555555"
+        )
+        self.btn_logout.pack(
+            pady=(15, 10), padx=15, fill="x"
+        )
+
         # ================= TABEL BUKU =================
         self.frame_kanan = ctk.CTkFrame(self)
         self.frame_kanan.grid(
@@ -131,12 +143,8 @@ class BukuView(ctk.CTk):
         self.tabel.column(
             "id", width=40, anchor="center"
         )
-        self.tabel.column(
-            "judul", width=150
-        )
-        self.tabel.column(
-            "penulis", width=120
-        )
+        self.tabel.column("judul", width=150)
+        self.tabel.column("penulis", width=120)
         self.tabel.column(
             "tahun", width=80, anchor="center"
         )
