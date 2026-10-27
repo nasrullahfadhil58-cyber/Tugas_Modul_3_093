@@ -2,7 +2,6 @@ from unittest.mock import MagicMock
 from models.user_model import UserModel
 
 
-
 def test_hash_password_konsisten():
     password_asli = "admin123"
     hash_1 = UserModel.hash_password(password_asli)
