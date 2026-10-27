@@ -10,18 +10,40 @@ from Models.buku_model import BukuModel
 
 
 def test_create_buku_berhasil():
-    # Menginisialisasi Model
     model = BukuModel()
 
-    # Memanipulasi koneksi database agar tidak memakai database asli
     model.conn = MagicMock()
     mock_cursor = MagicMock()
     model.conn.cursor.return_value = mock_cursor
 
-    # Melakukan eksekusi fungsi
     hasil = model.create_buku("Buku Testing", "Penulis QA", 2026)
 
-    # Memverifikasi hasil
     assert hasil is True
     mock_cursor.execute.assert_called_once()
     model.conn.commit.assert_called_once()
+
+
+def test_get_all_buku_berhasil():
+    model = BukuModel()
+
+    model.conn = MagicMock()
+    mock_cursor = MagicMock()
+    model.conn.cursor.return_value = mock_cursor
+
+    data_buku = [
+        {
+            "id_buku": 1,
+            "judul": "Buku Testing",
+            "penulis": "Penulis QA",
+            "tahun_terbit": 2026
+        }
+    ]
+
+    mock_cursor.fetchall.return_value = data_buku
+
+    hasil = model.get_all_buku()
+
+    assert hasil == data_buku
+    mock_cursor.execute.assert_called_once()
+    mock_cursor.fetchall.assert_called_once()
+    mock_cursor.close.assert_called_once()
