@@ -6,7 +6,8 @@ class Database:
         self.host = "localhost"
         self.user = "root"
         self.password = ""
-        self.database = "db_perpustakaan_rpl"
+        self.database = "perpustakaan"
+        self.conn = None
 
     def get_connection(self):
         try:

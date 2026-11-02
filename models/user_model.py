@@ -11,14 +11,17 @@ class UserModel:
 
     @staticmethod
     def hash_password(password):
-        # Mengubah password menjadi hash SHA-256
-        return hashlib.sha256(password.encode("utf-8")).hexdigest()
+        return hashlib.sha256(
+            password.encode("utf-8")
+        ).hexdigest()
 
     def register_user(self, username, password, role):
-        if self.conn:
-            cursor = self.conn.cursor()
+        if not self.conn:
+            return False
 
-            # Hash password sebelum disimpan ke database
+        cursor = self.conn.cursor()
+
+        try:
             password_hash = self.hash_password(password)
 
             query = """
@@ -26,39 +29,43 @@ class UserModel:
                 VALUES (%s, %s, %s)
             """
 
-            try:
-                cursor.execute(
-                    query,
-                    (username, password_hash, role)
-                )
-                self.conn.commit()
-                return True
+            cursor.execute(
+                query, (username, password_hash, role)
+            )
+            self.conn.commit()
+            return True
 
-            except Exception as e:
-                self.conn.rollback()
-                print("Gagal mendaftarkan pengguna:", e)
-                return False
+        except Exception as e:
+            self.conn.rollback()
+            print("Gagal mendaftarkan pengguna:", e)
+            return False
 
-            finally:
-                cursor.close()
-
-        return False
+        finally:
+            cursor.close()
 
     def autentikasi(self, username, password):
-        if self.conn:
-            cursor = self.conn.cursor(dictionary=True)
+        if not self.conn:
+            return None
+
+        cursor = self.conn.cursor(dictionary=True)
+
+        try:
             password_hash = self.hash_password(password)
 
             query = """
-                SELECT id, username, role
+                SELECT id_user, username, role
                 FROM users
                 WHERE username = %s AND password = %s
             """
 
             cursor.execute(query, (username, password_hash))
             user = cursor.fetchone()
-            cursor.close()
 
             return user
 
-        return None
+        except Exception as e:
+            print("Kesalahan autentikasi:", e)
+            return None
+
+        finally:
+            cursor.close()
